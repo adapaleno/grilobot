@@ -30,7 +30,7 @@ os.system('cls')
 
 def banner():
 
-    print(vermelho + """
+    print(verde + """
 
 
                             _           _   _           _        
@@ -39,14 +39,19 @@ def banner():
                             | |_) | (_) | |_| | | | \__ \ || (_| |
                             |_.__/ \___/ \__|_|_| |_|___/\__\__,_|
 
+
+
                                                 By Fellip Melo
 
-                            https://instagram.com/fellipsec
+
+                   https://instagram.com/fellipMG
+                       https://github.com/fellipmelo
+                            https://linkedin.com/in/fellipmelo
+
                                                 
-
-
     """)
-    sleep(2)
+    sleep(8)
+    
 
 #  tags  
 
@@ -73,7 +78,7 @@ tags = ["https://www.instagram.com/explore/tags/fellipsec/",
 def start():
    
     browser.get("https://www.instagram.com/accounts/login/?source=auth_switcher")
-    sleep(5)
+    sleep(10)
     user_name = browser.find_element_by_name("username")
     user_name.send_keys(agrs.u)
     senha = browser.find_element_by_name("password")
@@ -83,7 +88,7 @@ def start():
 
     # notificacao " agora nao"
 
-    sleep(3)
+    sleep(5)
     notificacao = browser.find_element_by_xpath('/html/body/div[4]/div/div/div[3]/button[2]')
     sleep(3)
     notificacao.click()
@@ -91,7 +96,7 @@ def start():
     # abre um link e clica em uma foto para iniciar programa
 
     browser.get(random.choice(tags))
-    sleep(6)
+    sleep(8)
     post = browser.find_element_by_xpath('//*[@id="react-root"]/section/main/article/div[1]/div/div/div[1]/div[2]')
     browser.implicitly_wait(1) 
     post.click()
@@ -100,7 +105,7 @@ def start():
 def repeticao():
     
     browser.get(random.choice(tags))
-    sleep(3)
+    sleep(6)
     post = browser.find_element_by_xpath('//*[@id="react-root"]/section/main/article/div[1]/div/div/div[1]/div[2]')
     browser.implicitly_wait(1) 
     post.click()
@@ -136,7 +141,7 @@ def curtir_seguir():
 
         curtir = browser.find_element_by_class_name('wpO6b ') 
         curtir.click()
-        sleep(7)
+        sleep(5)
         def seguir_user():
             seguir = browser.find_element_by_xpath('/html/body/div[4]/div[2]/div/article/header/div[2]/div[1]/div[2]/button')
             seguir.click()
@@ -144,9 +149,10 @@ def curtir_seguir():
         try:
             seguir_user()
         except Exception:
-            sleep(1)
-        # deixar de segui caso ja esteja seguindo
+            sleep(2)
 
+
+        # deixar de segui caso ja esteja seguindo
         try:
             proximo_imagem = browser.find_element_by_xpath('/html/body/div[4]/div[1]/div/div/a[2]')
             proximo_imagem.click()
@@ -202,12 +208,12 @@ def deseguir():
         sleep(4)
         des6 = browser.find_element_by_xpath('/html/body/div[4]/div/div[2]/ul/div/li[6]/div/div[3]/button')
         des6.click()
-        sleep(2)
         des_confir = browser.find_element_by_xpath('/html/body/div[5]/div/div/div[3]/button[1]')
         des_confir.click()
+        
 
         sleep(3)
-        fechar = browser.find_element_by_class_name('wpO6b ')
+        fechar = browser.find_element_by_xpath('/html/body/div[4]/div/div[1]/div/div[2]/button')
         fechar.click()
         sleep(15)
     
@@ -215,17 +221,8 @@ def deseguir():
     deseguir_user()
 
         
-# seguindo  675 foi para -- > 
 
  
-
-
-
-print("""
-
-
-
-""") 
 
 # recebe os argumentos da linha de comando
 
@@ -235,39 +232,12 @@ parser.add_argument('-p', required= True)
 
 agrs = parser.parse_args()
 
-
-
-#recebe as informações e seleciona modo do bot
 banner()
 
-print("""
-    Por favor informe qual a versão do seu navegador Chrome.
-    *80/79/78*
+print(vermelho + """
 
-    Se não souber eu te ajudo !
-    Abra o Chrome e cole chrome://settings/help
-    Vai está escrito a versão do seu navegador :)
+ Selecione uma das opções abaixo:
 
-""")
-versao = str(input(verde +"#$ "))
-caminho = '%appdata%/'
-def esc_version():
-    if versao == '80':
-        caminho = '%appdata%/chromedriver80.exe'
-    elif versao == '79':
-        caminho = '%appdata%/chromedriver79.exe'
-    elif versao == '78':
-        caminho = '%appdata%/chromedriver78.exe'
-    else:
-        os.system('cls')
-        print(vermelho+" Por favor escolha uma das versões: 80, 79, 78")
-        pass        
-esc_version()
-os.system('xcopy bot %appdata% /y')
-os.system('cls')
-banner()
-print("""
- Selecione uma das opcoes abaixo:
 
  1) Curtir
  2) Curtir e seguir
@@ -280,7 +250,7 @@ a = '1'
 selecione = str(input(verde +"#$ "))
 if selecione == '1':
     #a = '1'
-    browser = webdriver.Chrome(executable_path=r'%caminho')
+    browser = webdriver.Chrome(executable_path=r"bot/chromedriver.exe")
     start()
     likes()
     for curtir in range(2000):
@@ -288,19 +258,19 @@ if selecione == '1':
 
 elif selecione == '2':
     #a = '2'
-    browser = webdriver.Chrome(executable_path=caminho)
+    browser = webdriver.Chrome(executable_path=r"bot/chromedriver.exe")
     start()
     curtir_seguir()
-    for curtir in range(5000):
+    for curtir_seguir in range(5000):
         repeticao()
 elif selecione == '3':
     #a = '3'
     print('')
-    valor = int(input(" Quantas pessoas quer deseguir? "))
+    valor = int(input(" Quantas pessoas quer deseguir ? "))
     b = 7
     valor = valor / 7
     valor = round(valor)
-    browser = webdriver.Chrome(executable_path=r"C:\Users\Esmola\Desktop\chromedriver.exe")
+    browser = webdriver.Chrome(executable_path=r"bot/chromedriver.exe")
     start()
     deseguir()
     for unfollow in range(valor):
@@ -311,4 +281,3 @@ elif selecione == '3':
 #curtir_seguir()
 #for curtir_seguir in range(5):
  #   repeticao()
-
